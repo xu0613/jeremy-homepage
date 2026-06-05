@@ -1,139 +1,159 @@
 ---
-const now = new Date();
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Clock from "../components/Clock.astro";
+import ProjectCard from "../components/ProjectCard.astro";
+import { getCollection } from "astro:content";
+
+const posts = (await getCollection("blog", ({ data }) => !data.draft))
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
+  .slice(0, 3);
 ---
 
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Jeremy Xu</title>
-  </head>
+<BaseLayout
+  title="Jeremy Xu | Personal Website"
+  description="Personal website and blog of Jeremy Xu."
+>
+  <section class="hero">
+    <p class="eyebrow">Personal Website</p>
+    <h1 class="page-title">Hi, I'm Jeremy Xu.</h1>
+    <p class="page-description">
+      I'm a computer science student interested in backend systems, databases,
+      data infrastructure, and AI applications. This is my small corner of the
+      internet for projects, notes, blog posts, and whatever I am quietly
+      building next.
+    </p>
 
-  <body>
-    <main class="container">
-      <section class="hero">
-        <p class="tag">Personal Website</p>
-        <h1>Hi, I'm Jeremy Xu.</h1>
-        <p class="intro">
-          Computer Science student interested in backend systems, databases,
-          data infrastructure, and AI applications.
-        </p>
+    <div class="hero-actions">
+      <a class="primary" href="/blog">Read my blog</a>
+      <a class="secondary" href="/projects">View projects</a>
+    </div>
+  </section>
 
-        <div class="links">
-          <a href="/blog">Blog</a>
-          <a href="/projects">Projects</a>
-          <a href="/about">About</a>
-          <a href="/now">Now</a>
-        </div>
-      </section>
+  <section class="card clock-wrap">
+    <Clock />
+  </section>
 
-      <section class="card">
-        <h2>Current Time</h2>
-        <p id="clock">Loading...</p>
-      </section>
+  <section class="section">
+    <div class="section-head">
+      <p class="eyebrow">Latest Writing</p>
+      <a href="/blog">All posts →</a>
+    </div>
 
-      <section class="card">
-        <h2>Currently</h2>
-        <ul>
-          <li>Learning Java backend development</li>
-          <li>Preparing for postgraduate study abroad</li>
-          <li>Building my personal website</li>
-          <li>Writing notes about programming and university life</li>
-        </ul>
-      </section>
-    </main>
-
-    <script>
-      function updateClock() {
-        const el = document.getElementById("clock");
-        const now = new Date();
-        el.textContent = now.toLocaleString("en-US", {
-          hour12: false,
-          timeZoneName: "short",
-        });
+    <div class="post-list">
+      {
+        posts.map((post) => (
+          <a class="post-card" href={`/blog/${post.id}/`}>
+            <p>{post.data.date.toLocaleDateString("en-US")}</p>
+            <h2>{post.data.title}</h2>
+            <span>{post.data.description}</span>
+          </a>
+        ))
       }
+    </div>
+  </section>
 
-      updateClock();
-      setInterval(updateClock, 1000);
-    </script>
-  </body>
-</html>
+  <section class="section">
+    <p class="eyebrow">Featured Projects</p>
+    <div class="grid grid-3">
+      <ProjectCard
+        title="Java Backend Roadmap"
+        description="A long-term learning route from Java basics to backend development, databases, Redis, Docker, and small projects."
+        tags={["Java", "Backend", "Learning"]}
+      />
+      <ProjectCard
+        title="Personal Website"
+        description="A personal homepage and blog built with Astro, Markdown, GitHub, and Cloudflare Pages."
+        tags={["Astro", "Blog", "Cloudflare"]}
+      />
+      <ProjectCard
+        title="SURF Research"
+        description="Research exploration around Python, LLM applications, games, and security-related ideas."
+        tags={["Python", "LLM", "Research"]}
+      />
+    </div>
+  </section>
+</BaseLayout>
 
 <style>
-  :global(body) {
-    margin: 0;
-    font-family:
-      Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
-      "Segoe UI", sans-serif;
-    background:
-      radial-gradient(circle at top left, #f5d6ff 0, transparent 30%),
-      radial-gradient(circle at bottom right, #d7ecff 0, transparent 35%),
-      #fafafa;
-    color: #18181b;
-  }
-
-  .container {
-    max-width: 900px;
-    margin: 0 auto;
-    padding: 96px 24px;
-  }
-
   .hero {
-    margin-bottom: 48px;
+    padding: 54px 0 42px;
   }
 
-  .tag {
-    color: #7c3aed;
-    font-weight: 700;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    font-size: 0.8rem;
-  }
-
-  h1 {
-    font-size: clamp(3rem, 8vw, 6rem);
-    line-height: 0.95;
-    margin: 16px 0;
-  }
-
-  .intro {
-    max-width: 640px;
-    font-size: 1.2rem;
-    line-height: 1.8;
-    color: #52525b;
-  }
-
-  .links {
+  .hero-actions {
     display: flex;
     flex-wrap: wrap;
     gap: 12px;
     margin-top: 32px;
   }
 
-  .links a {
+  .hero-actions a {
     text-decoration: none;
+    border-radius: 999px;
+    padding: 12px 18px;
+    font-weight: 800;
+  }
+
+  .primary {
     color: white;
     background: #18181b;
-    padding: 10px 16px;
-    border-radius: 999px;
-    font-weight: 600;
   }
 
-  .card {
+  .secondary {
+    color: #18181b;
+    background: rgba(255, 255, 255, 0.7);
+    border: 1px solid rgba(24, 24, 27, 0.08);
+  }
+
+  .clock-wrap {
+    margin: 28px 0 56px;
+  }
+
+  .section {
+    margin-top: 64px;
+  }
+
+  .section-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 18px;
+  }
+
+  .section-head a {
+    color: #7c3aed;
+    text-decoration: none;
+    font-weight: 800;
+  }
+
+  .post-list {
+    display: grid;
+    gap: 16px;
+  }
+
+  .post-card {
+    display: block;
+    text-decoration: none;
     background: rgba(255, 255, 255, 0.72);
-    border: 1px solid rgba(255, 255, 255, 0.8);
+    border: 1px solid rgba(24, 24, 27, 0.08);
     border-radius: 24px;
-    padding: 28px;
-    margin: 20px 0;
-    box-shadow: 0 20px 60px rgba(15, 23, 42, 0.08);
-    backdrop-filter: blur(16px);
+    padding: 24px;
+    box-shadow: 0 20px 60px rgba(15, 23, 42, 0.05);
   }
 
-  .card h2 {
-    margin-top: 0;
+  .post-card p {
+    margin: 0 0 8px;
+    color: #7c3aed;
+    font-size: 0.9rem;
+    font-weight: 800;
   }
 
-  li {
-    margin: 8px 0;
+  .post-card h2 {
+    margin: 0 0 8px;
+  }
+
+  .post-card span {
+    color: #71717a;
+    line-height: 1.7;
   }
 </style>

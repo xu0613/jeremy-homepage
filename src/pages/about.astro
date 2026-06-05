@@ -1,50 +1,67 @@
 ---
+import BaseLayout from "../layouts/BaseLayout.astro";
 ---
 
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <title>About | Jeremy Xu</title>
-  </head>
+<BaseLayout title="About | Jeremy Xu" description="About Jeremy Xu.">
+  <section>
+    <p class="eyebrow">About</p>
+    <h1 class="page-title">A small map of who I am.</h1>
+    <p class="page-description">
+      I'm Jeremy Xu, a computer science student who enjoys programming, reading
+      online novels, badminton, and building tools that make life slightly more
+      interesting.
+    </p>
+  </section>
 
-  <body>
-    <main>
-      <a href="/">← Back Home</a>
-      <h1>About Me</h1>
+  <section class="grid grid-2 about-grid">
+    <div class="card">
+      <h2>What I care about</h2>
       <p>
-        I'm Jeremy Xu, a computer science student interested in backend systems,
-        databases, data infrastructure, and AI applications.
+        I am especially interested in backend systems, databases, data
+        infrastructure, and AI applications. I like things that are practical,
+        reliable, and quietly powerful.
       </p>
-    </main>
-  </body>
-</html>
+    </div>
+
+    <div class="card">
+      <h2>What I'm learning</h2>
+      <p>
+        Java backend development, SQL, Linux, Git, computer networks, operating
+        systems, and the kind of engineering habits that make projects survive
+        longer than one weekend.
+      </p>
+    </div>
+
+    <div class="card">
+      <h2>Why this site exists</h2>
+      <p>
+        This website is my personal archive: notes, projects, essays, fragments
+        of thinking, and small technical experiments. A public notebook, but
+        with better lighting.
+      </p>
+    </div>
+
+    <div class="card">
+      <h2>Elsewhere</h2>
+      <p>
+        You can find my code and projects on GitHub. More links will be added
+        here when this little site grows up a bit.
+      </p>
+    </div>
+  </section>
+</BaseLayout>
 
 <style>
-  body {
-    font-family: system-ui, sans-serif;
-    margin: 0;
-    background: #fafafa;
-    color: #18181b;
+  .about-grid {
+    margin-top: 48px;
   }
 
-  main {
-    max-width: 760px;
-    margin: 0 auto;
-    padding: 80px 24px;
-  }
-
-  a {
-    color: #7c3aed;
-    text-decoration: none;
-    font-weight: 700;
-  }
-
-  h1 {
-    font-size: 3rem;
+  h2 {
+    margin-top: 0;
   }
 
   p {
-    font-size: 1.1rem;
+    color: #71717a;
     line-height: 1.8;
   }
 </style>

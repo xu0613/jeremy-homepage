@@ -1,0 +1,110 @@
+---
+const navItems = [
+  { href: "/", label: "Home" },
+  { href: "/blog", label: "Blog" },
+  { href: "/projects", label: "Projects" },
+  { href: "/about", label: "About" },
+  { href: "/now", label: "Now" },
+];
+
+const currentPath = Astro.url.pathname;
+---
+
+<header>
+  <a class="brand" href="/" aria-label="Go to homepage">
+    <span class="logo">J</span>
+    <span>Jeremy Xu</span>
+  </a>
+
+  <nav>
+    {
+      navItems.map((item) => (
+        <a
+          href={item.href}
+          class:list={[
+            "nav-link",
+            currentPath === item.href || currentPath.startsWith(item.href + "/")
+              ? "active"
+              : "",
+          ]}
+        >
+          {item.label}
+        </a>
+      ))
+    }
+  </nav>
+</header>
+
+<style>
+  header {
+    width: min(1040px, calc(100% - 40px));
+    margin: 0 auto;
+    padding: 28px 0 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 18px;
+  }
+
+  .brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+    font-weight: 800;
+  }
+
+  .logo {
+    width: 34px;
+    height: 34px;
+    border-radius: 12px;
+    display: grid;
+    place-items: center;
+    color: white;
+    background: linear-gradient(135deg, #18181b, #7c3aed);
+    box-shadow: 0 12px 30px rgba(124, 58, 237, 0.24);
+  }
+
+  nav {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px;
+    border: 1px solid rgba(24, 24, 27, 0.08);
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.62);
+    backdrop-filter: blur(16px);
+  }
+
+  .nav-link {
+    text-decoration: none;
+    color: #52525b;
+    font-size: 0.94rem;
+    font-weight: 650;
+    padding: 8px 12px;
+    border-radius: 999px;
+  }
+
+  .nav-link:hover,
+  .nav-link.active {
+    color: #18181b;
+    background: rgba(24, 24, 27, 0.08);
+  }
+
+  @media (max-width: 720px) {
+    header {
+      align-items: flex-start;
+      flex-direction: column;
+    }
+
+    nav {
+      width: 100%;
+      overflow-x: auto;
+      justify-content: flex-start;
+    }
+
+    .nav-link {
+      white-space: nowrap;
+    }
+  }
+</style>

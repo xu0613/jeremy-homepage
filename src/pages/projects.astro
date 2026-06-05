@@ -1,0 +1,72 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import ProjectCard from "../components/ProjectCard.astro";
+
+const projects = [
+  {
+    title: "Java Backend Roadmap",
+    description:
+      "A long-term learning roadmap covering Java, Git, Linux, SQL, Spring Boot, Redis, Docker, CS basics, and small backend projects.",
+    tags: ["Java", "Backend", "SQL"],
+  },
+  {
+    title: "Personal Website",
+    description:
+      "This website itself: built with Astro, Markdown, GitHub, and Cloudflare Pages as a place for writing and project notes.",
+    tags: ["Astro", "Markdown", "Cloudflare"],
+  },
+  {
+    title: "SURF Research Exploration",
+    description:
+      "Research exploration involving Python, LLM applications, game mechanisms, and security-related ideas.",
+    tags: ["Python", "LLM", "Research"],
+  },
+  {
+    title: "EVE OCR Tool",
+    description:
+      "An OCR-based tool idea for reading game information and supporting quicker decisions in EVE Online.",
+    tags: ["OCR", "Python", "Tools"],
+  },
+  {
+    title: "Stable Diffusion Notes",
+    description:
+      "Deployment and experiment notes around Stable Diffusion WebUI, models, prompts, and image generation workflows.",
+    tags: ["AI", "SD WebUI", "Notes"],
+  },
+  {
+    title: "Campus Food Waste Proposal",
+    description:
+      "An academic proposal project about reducing campus food waste through flexible portions and collection points.",
+    tags: ["EAP", "Research", "Sustainability"],
+  },
+];
+---
+
+<BaseLayout title="Projects | Jeremy Xu" description="Projects by Jeremy Xu.">
+  <section>
+    <p class="eyebrow">Projects</p>
+    <h1 class="page-title">Things I am building, learning, or trying not to abandon.</h1>
+    <p class="page-description">
+      Some are proper projects, some are experiments, and some are just
+      stubborn little ideas that refused to leave my head.
+    </p>
+  </section>
+
+  <section class="grid grid-3 projects-grid">
+    {
+      projects.map((project) => (
+        <ProjectCard
+          title={project.title}
+          description={project.description}
+          tags={project.tags}
+        />
+      ))
+    }
+  </section>
+</BaseLayout>
+
+<style>
+  .projects-grid {
+    margin-top: 48px;
+  }
+</style>

@@ -1,0 +1,80 @@
+---
+interface Props {
+  title: string;
+  description: string;
+  tags?: string[];
+  href?: string;
+}
+
+const { title, description, tags = [], href } = Astro.props;
+---
+
+<article class="project-card">
+  <div>
+    <h3>{title}</h3>
+    <p>{description}</p>
+  </div>
+
+  {
+    tags.length > 0 && (
+      <div class="tags">
+        {tags.map((tag) => <span>{tag}</span>)}
+      </div>
+    )
+  }
+
+  {
+    href && (
+      <a class="project-link" href={href} target="_blank" rel="noreferrer">
+        View project →
+      </a>
+    )
+  }
+</article>
+
+<style>
+  .project-card {
+    min-height: 220px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 22px;
+    background: rgba(255, 255, 255, 0.72);
+    border: 1px solid rgba(24, 24, 27, 0.08);
+    border-radius: 26px;
+    padding: 24px;
+    box-shadow: 0 20px 60px rgba(15, 23, 42, 0.06);
+    backdrop-filter: blur(16px);
+  }
+
+  h3 {
+    margin: 0 0 12px;
+    font-size: 1.25rem;
+  }
+
+  p {
+    margin: 0;
+    color: #71717a;
+    line-height: 1.7;
+  }
+
+  .tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .tags span {
+    border-radius: 999px;
+    padding: 6px 10px;
+    color: #52525b;
+    font-size: 0.84rem;
+    background: rgba(24, 24, 27, 0.06);
+  }
+
+  .project-link {
+    color: #7c3aed;
+    text-decoration: none;
+    font-weight: 800;
+  }
+</style>

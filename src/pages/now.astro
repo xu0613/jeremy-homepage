@@ -1,0 +1,78 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Clock from "../components/Clock.astro";
+---
+
+<BaseLayout title="Now | Jeremy Xu" description="What Jeremy Xu is doing now.">
+  <section>
+    <p class="eyebrow">Now</p>
+    <h1 class="page-title">What I'm doing these days.</h1>
+    <p class="page-description">
+      A simple snapshot of my current focus. Not a perfect life dashboard, just
+      a little window left open.
+    </p>
+  </section>
+
+  <section class="card clock-section">
+    <Clock />
+  </section>
+
+  <section class="grid grid-2 now-grid">
+    <div class="card">
+      <h2>Learning</h2>
+      <ul>
+        <li>Java backend development</li>
+        <li>SQL and database fundamentals</li>
+        <li>Linux, Git, and deployment workflows</li>
+        <li>Computer networks and operating systems</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h2>Building</h2>
+      <ul>
+        <li>This personal website</li>
+        <li>Small backend practice projects</li>
+        <li>Project notes and blog posts</li>
+        <li>Research-related experiments</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h2>Reading / Thinking</h2>
+      <p>
+        I am thinking about how to connect computer science skills with real
+        systems, useful tools, and long-term personal growth.
+      </p>
+    </div>
+
+    <div class="card">
+      <h2>Status</h2>
+      <p>
+        Slowly building. Quietly improving. Occasionally debugging things that
+        should not have been broken in the first place.
+      </p>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .clock-section,
+  .now-grid {
+    margin-top: 44px;
+  }
+
+  h2 {
+    margin-top: 0;
+  }
+
+  li {
+    margin: 10px 0;
+    color: #71717a;
+  }
+
+  p {
+    color: #71717a;
+    line-height: 1.8;
+  }
+</style>
